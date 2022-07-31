@@ -13,7 +13,6 @@ function RefuelChainsawAction:isValid()
 	return self.petrol and 
     self.chainsaw and 
     self.chainsaw:hasTag("ChainsawOff") and 
-    not self.character:isMoving() and
     not ChainsawAPI.isChainsawRunning(self.chainsaw) and 
     not ChainsawAPI.isFull(self.chainsaw);
 end
