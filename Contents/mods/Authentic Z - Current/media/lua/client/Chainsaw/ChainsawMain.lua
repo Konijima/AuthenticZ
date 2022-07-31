@@ -1,7 +1,8 @@
 --- Code by Konijima, 2022
+--- Manage World Context menu and Inventory Context Menu
 
 local ChainsawAPI = require("Chainsaw/ChainsawAPI");
-local ChainsawCutTreeAction = require("Chainsaw/TimedActions/ChainsawCutTreeAction");
+local ChainsawItemEditorUI = require("Chainsaw/UI/ChainsawItemEditorUI");
 local RefuelChainsawAction = require("Chainsaw/TimedActions/RefuelChainsawAction");
 local StartChainsawAction = require("Chainsaw/TimedActions/StartChainsawAction");
 local StopChainsawAction = require("Chainsaw/TimedActions/StopChainsawAction");
@@ -29,9 +30,8 @@ local function doStopChainsaw(playerObj, chainsaw)
 end
 
 local function doChopTree(playerObj, chainsaw, tree)
-    if luautils.walkAdj(playerObj, tree:getSquare()) then
-        ISTimedActionQueue.add(ChainsawCutTreeAction:new(playerObj, chainsaw, tree));
-    end
+    local chopTree = ChainsawTreeCursor:new("", "", playerObj, chainsaw)
+	getCell():setDrag(chopTree, playerObj:getPlayerNum());
 end
 
 --- World Context Menu
@@ -46,7 +46,7 @@ local function onFillWorldObjectContextMenu(player, context, worldobjects, test)
     local item = playerObj:getPrimaryHandItem();
 
     --- Is it a chainsaw
-    if item and ChainsawAPI.predicateChainsaw(item) then
+    if item and ChainsawAPI.predicateWorkingChainsaw(item) then
 
         --- is it running?
         if ChainsawAPI.isChainsawRunning(item) then
@@ -84,12 +84,12 @@ local function onFillInventoryObjectContextMenu(player, context, items)
     for i,v in ipairs(items) do
         if not instanceof(v, "InventoryItem") then
             for _, it in ipairs(v.items) do
-                if ChainsawAPI.predicateChainsaw(it) then
+                if ChainsawAPI.predicateWorkingChainsaw(it) then
                     chainsaw = it;
                     break;
                 end
             end
-        elseif ChainsawAPI.predicateChainsaw(v) then
+        elseif ChainsawAPI.predicateWorkingChainsaw(v) then
             chainsaw = v;
             break;
         end
@@ -98,6 +98,16 @@ local function onFillInventoryObjectContextMenu(player, context, items)
     --- Selected a chainsaw
     if chainsaw then
         
+        --- Debug edit chainsaw
+        if isDebugEnabled() or isAdmin() then
+            local function doEditChainsaw()
+                local ui = ChainsawItemEditorUI:new(50,50,600,600, player, chainsaw);
+                ui:initialise();
+                ui:addToUIManager();
+            end
+            context:addDebugOption("Edit Chainsaw", nil, doEditChainsaw);
+        end
+
         --- is it running?
         if ChainsawAPI.isChainsawRunning(chainsaw) then
             context:addOptionOnTop(getText("ContextMenu_Stop_Chainsaw"), playerObj, doStopChainsaw, chainsaw);
