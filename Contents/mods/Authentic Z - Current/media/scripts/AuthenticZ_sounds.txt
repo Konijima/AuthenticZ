@@ -21,7 +21,13 @@ module AuthenticZClothing {
     sound ChainsawCutRev
     {
         category = Chainsaw, loop = false, is3D = true,
-        clip { file = media/sound/Chainsaw/ChainsawCutRev.wav, distanceMax = 30, volume = 0.4, }
+        clip { file = media/sound/Chainsaw/ChainsawCutRev.wav, distanceMax = 30, volume = 0.2, }
+    }
+
+    sound ChainsawAttack1
+    {
+        category = Chainsaw, loop = false, is3D = true,
+        clip { file = media/sound/Chainsaw/ChainsawAttack1.wav, distanceMax = 30, volume = 0.2, }
     }
 
     sound ChainsawIdle
