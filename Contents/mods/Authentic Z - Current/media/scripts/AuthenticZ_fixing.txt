@@ -2,7 +2,7 @@ module AuthenticZClothing
 {
 	fixing Fix Chainsaw
 	{
-	   Require : Chainsaw,
+	   Require : ChainsawOff,
 	   
        Fixer : Woodglue=2; Woodwork=2,
        Fixer : DuctTape=2,
