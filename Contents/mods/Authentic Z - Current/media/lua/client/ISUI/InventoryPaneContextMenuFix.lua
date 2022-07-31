@@ -3220,7 +3220,7 @@ ISInventoryPaneContextMenu.onGrabHalfItems = function(items, player)
 end
 
 ISInventoryPaneContextMenu.onEditItem = function(items, player, item)
-    local ui = ISItemEditorUI:new(50,50,600,600, player, item);
+    local ui = ChainsawItemEditorUI:new(50,50,600,600, player, item);
     ui:initialise();
     ui:addToUIManager();
 end
