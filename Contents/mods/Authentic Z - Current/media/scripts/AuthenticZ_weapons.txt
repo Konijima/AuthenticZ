@@ -616,9 +616,17 @@ module AuthenticZClothing {
      	WeaponLength = 0.4,
 		DamageMakeHole = TRUE,
 		AttachmentType = BigBlade,
-		Tags = ChopTree;CutPlant,
+        FuelCapacity = 4,
+        FuelConsumption = 0.01,
+        ChainsawStartSound = ChainsawStart,
+        ChainsawStopSound = ChainsawStartShort,
+        ChainsawIdleSound = ChainsawIdle,
+        ChainsawChopSound = ChainsawCut,
+        ChainsawAttackSound = ChainsawCutRev,
+		Tags = Chainsaw,
 		WorldStaticModel = WorldItem_Chainsaw,
     }
+    
 	item AuthenticBingoDotter
 	{
 	    DisplayCategory = Household,

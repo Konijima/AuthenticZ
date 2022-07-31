@@ -1,0 +1,13 @@
+module AuthenticZClothing
+{
+	fixing Fix Chainsaw
+	{
+	   Require : Chainsaw,
+	   
+       Fixer : Woodglue=2; Woodwork=2,
+       Fixer : DuctTape=2,
+       Fixer : Glue=2,
+       Fixer : Scotchtape=4,
+	}
+
+}
