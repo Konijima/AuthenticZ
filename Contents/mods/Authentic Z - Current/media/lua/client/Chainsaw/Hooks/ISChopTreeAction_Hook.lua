@@ -1,5 +1,5 @@
 --- Code by Konijima, 2022
---- Prevent Axe Cut Tree Action
+--- Prevent vanilla chop tree action with chainsaw
 
 local original_ISChopTreeAction_isValid = ISChopTreeAction.isValid;
 function ISChopTreeAction:isValid()

@@ -1,4 +1,5 @@
 --- Code by Konijima, 2022
+--- Stop chainsaw when unequipping
 
 local ChainsawAPI = require("Chainsaw/ChainsawAPI");
 
