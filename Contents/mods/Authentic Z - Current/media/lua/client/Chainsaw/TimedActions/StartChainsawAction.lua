@@ -6,7 +6,7 @@ local ChainsawAPI = require("Chainsaw/ChainsawAPI");
 local StartChainsawAction = ISBaseTimedAction:derive("StartChainsawAction")
 
 function StartChainsawAction:isValid()
-	return self.chainsaw ~= nil and self.chainsaw:hasTag("Chainsaw") and not ChainsawAPI.isChainsawRunning(self.chainsaw);
+	return self.chainsaw ~= nil and self.chainsaw:hasTag("ChainsawOff");
 end
 
 function StartChainsawAction:update()
@@ -16,7 +16,7 @@ end
 function StartChainsawAction:start()
     local modData = self.chainsaw:getModData();
 
-    self.chainsaw:setJobType(getText("ContextMenu_Starting_Chainsaw"));
+    self.chainsaw:setJobType(getText("ContextMenu_Start_Chainsaw"));
     self.chainsaw:setJobDelta(0.0);
 
     self:setActionAnim("Chainsaw");
@@ -56,9 +56,9 @@ function StartChainsawAction:new(character, chainsaw)
 	self.__index = self
 	o.character = character
 	o.chainsaw = chainsaw
-	o.stopOnWalk = true
+	o.stopOnWalk = false
 	o.stopOnRun = true
-	o.maxTime = 100
+	o.maxTime = 60
 	return o
 end
 

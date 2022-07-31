@@ -12,7 +12,8 @@ local RefuelChainsawAction = ISBaseTimedAction:derive("RefuelChainsawAction")
 function RefuelChainsawAction:isValid()
 	return self.petrol and 
     self.chainsaw and 
-    self.chainsaw:hasTag("Chainsaw") and 
+    self.chainsaw:hasTag("ChainsawOff") and 
+    not self.character:isMoving() and
     not ChainsawAPI.isChainsawRunning(self.chainsaw) and 
     not ChainsawAPI.isFull(self.chainsaw);
 end
@@ -34,9 +35,10 @@ function RefuelChainsawAction:start()
 
     self.action:setTime(unitTransfer * 50);
 
-    self:setActionAnim("refuelgascan");
+    self:setActionAnim("RefuelChainsaw");
 
     self:setOverrideHandModels(self.chainsaw:getStaticModel(), self.petrol:getStaticModel());
+
     self.sound = self.character:playSound("GeneratorAddFuel");
 end
 
@@ -75,7 +77,7 @@ function RefuelChainsawAction:new(character, chainsaw)
 	o.chainsaw = chainsaw
     o.chainsawModData = chainsaw:getModData();
     o.petrol = character:getInventory():getFirstEval(predicatePetrol);
-	o.stopOnWalk = true
+	o.stopOnWalk = false
 	o.stopOnRun = true
 	o.maxTime = 50
 	return o
